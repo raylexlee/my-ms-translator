@@ -1,0 +1,6 @@
+node_modules/
+key
+region
+log*
+*.wav
+packages-microsoft-prod.deb
