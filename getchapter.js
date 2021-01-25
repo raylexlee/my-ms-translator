@@ -9,7 +9,7 @@ const html = m => `<!DOCTYPE html>
 <body>
   ${m[1]}<br>
   ${m[2]}<br>
-  ${m[3]}  
+  ${m[3].replace(/<img src=\/mpf\/h\/HUHN\.BMP align=absmiddle border=0>/gm, '雞').replace(/<img src=\/mpf\/h\/HUAU\.BMP align=absmiddle border=0>/gm,'巴') }  
 </body>
 </html>`;
 const infile = i => `./redchamberdream/${i.toString()}.html`;

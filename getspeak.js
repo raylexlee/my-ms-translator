@@ -16,7 +16,11 @@ const outfile = i => `./ssml/${(i-398).toString().padStart(3,'0')}.ssml`;
 for (let i=399; i <= 518; i++) {
   const rawdata = fs.readFileSync(infile(i), {encoding:'utf8', flag:'r'});
   const m = rawdata.match(pattern);
-  const bodyVoice = voiceText(voiceName[1], m[3].replace(regex, subst));
+  const bodyVoice = voiceText(voiceName[1], 
+    m[3].replace(regex, subst)
+        .replace(/<img src=\/mpf\/h\/HUHN\.BMP align=absmiddle border=0>/gm, '雞')
+        .replace(/<img src=\/mpf\/h\/HUAU\.BMP align=absmiddle border=0>/gm,'巴')
+    );
   const titleVoice = voiceText(voiceName[2], `${m[1]}${subst}${m[2]}`);
   fs.writeFileSync(outfile(i), ssml(titleVoice, bodyVoice));
 }  
