@@ -1,5 +1,6 @@
 #!/bin/bash
 ORIG_DIR=$(pwd)
+STONE_DIR=$HOME/raylexlee.github.io/stone
 CHAPTER=${1?"missing: the three digit 001-120"}
 TITLE=$(grep $CHAPTER ../titles.txt | tr -d [:digit:])
 DATE=$(date +%F)
@@ -16,8 +17,10 @@ ffmpeg -i $1.wav -codec:a libmp3lame -qscale:a 9 $1.mp3
 mid3v2 -a "曹雪芹" -t "$TITLE" -A "【紅樓夢】全本廣東話原文照讀" -c "版本：清乾隆五十七（１７９２）年萃文書屋活字本（通稱 程乙本)" -g "101" -y $DATE -T "$1/120" $1.mp3
 ls -l
 mid3v2 $1.mp3
-mv $1.mp3 $HOME/raylexlee.github.io/stone/
-cd $HOME/raylexlee.github.io
+cd $STONE_DIR
+mv $ORIG_DIR/$1.mp3 .
+sed "s/^episodes:.*$/episodes: $1,/" < raylex.html | sed "s/<hr>/<hr>\nLast updated on $(date +%c)/" > index.html
+cd ..
 git add -A
 git commit -m "Add entries."
 git push origin master
