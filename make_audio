@@ -20,7 +20,7 @@ ls -l
 mid3v2 $1.mp3
 cd $STONE_DIR
 mv $ORIG_DIR/$1.mp3 .
-sed "s/^episodes:.*$/episodes: $NOZERO,/" < raylex.html | sed "s/<hr>/<hr>\nLast updated on $(date +%c)/" > index.html
+sed "s/^const episodes.*$/const episodes = $NOZERO;/" < raylex.html | sed "s/<hr>/<hr>\nLast updated on $(date +%c)/" > index.html
 cd ..
 git add -A
 git commit -m "Add entries."

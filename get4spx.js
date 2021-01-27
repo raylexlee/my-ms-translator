@@ -17,7 +17,8 @@ for (let i=399; i <= 518; i++) {
   const rawdata = fs.readFileSync(infile(i), {encoding:'utf8', flag:'r'});
   const m = rawdata.match(pattern);
   const paras = m[3].replace(/<img src=\/mpf\/h\/HUHN\.BMP align=absmiddle border=0>/gm, '雞')
-                        .replace(/<img src=\/mpf\/h\/HUAU\.BMP align=absmiddle border=0>/gm,'巴')
+                        .replace(/<img src=\/mpf\/h\/HUAU\.BMP align=absmiddle border=0>/gm, '巴')
+                        .replace(/<img src=\/mpf\/r\/RQJL\.BMP align=absmiddle border=0>/gm, '邦')
                         .split(regex)
   paras.pop();
   paras.pop();                      
