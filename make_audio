@@ -2,6 +2,7 @@
 ORIG_DIR=$(pwd)
 STONE_DIR=$HOME/raylexlee.github.io/stone
 CHAPTER=${1?"missing: the three digit 001-120"}
+NOZERO=$(echo $CHAPTER | sed 's/^0*//')
 TITLE=$(grep $CHAPTER ../titles.txt | tr -d [:digit:])
 DATE=$(date +%F)
 rm *wav
@@ -19,7 +20,7 @@ ls -l
 mid3v2 $1.mp3
 cd $STONE_DIR
 mv $ORIG_DIR/$1.mp3 .
-sed "s/^episodes:.*$/episodes: $1,/" < raylex.html | sed "s/<hr>/<hr>\nLast updated on $(date +%c)/" > index.html
+sed "s/^episodes:.*$/episodes: $NOZERO,/" < raylex.html | sed "s/<hr>/<hr>\nLast updated on $(date +%c)/" > index.html
 cd ..
 git add -A
 git commit -m "Add entries."
