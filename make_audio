@@ -1,4 +1,5 @@
 #!/bin/bash
+[[ $PATH =~ $HOME/spx  ]] || PATH=$HOME/spx:$PATH
 ORIG_DIR=$(pwd)
 STONE_DIR=$HOME/raylexlee.github.io/stone
 CHAPTER=${1?"missing: the three digit 001-120"}
