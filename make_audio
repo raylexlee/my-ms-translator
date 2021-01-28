@@ -1,29 +1,34 @@
 #!/bin/bash
+CHAPTER=${1?"missing: the three digit 001-120"}
 [[ $PATH =~ $HOME/spx  ]] || PATH=$HOME/spx:$PATH
 ORIG_DIR=$(pwd)
 STONE_DIR=$HOME/raylexlee.github.io/stone
-CHAPTER=${1?"missing: the three digit 001-120"}
+while [ $CHAPTER -le 120 ]
+do
 NOZERO=$(echo $CHAPTER | sed 's/^0*//')
 TITLE=$(grep $CHAPTER ../titles.txt | tr -d [:digit:])
 DATE=$(date +%F)
 rm *wav
 rm *log
-for SSML in $(ls ../spx/$1_?.ssml)
+for SSML in $(ls ../spx/$CHAPTER\_?.ssml)
   do
     PART=$(echo $SSML | tr -d spx/.ssml)
     spx synthesize --file $SSML --audio output $PART.wav  &
     wait
   done
-sox $1_?.wav $1.wav
-ffmpeg -i $1.wav -codec:a libmp3lame -qscale:a 9 $1.mp3    
-mid3v2 -a "曹雪芹" -t "$TITLE" -A "【紅樓夢】全本廣東話原文照讀" -c "版本：清乾隆五十七（１７９２）年萃文書屋活字本（通稱 程乙本)" -g "101" -y $DATE -T "$1/120" $1.mp3
+sox $CHAPTER_?.wav $CHAPTER.wav
+ffmpeg -i $1.wav -codec:a libmp3lame -qscale:a 9 $CHAPTER.mp3    
+mid3v2 -a "曹雪芹" -t "$TITLE" -A "【紅樓夢】全本廣東話原文照讀" -c "版本：清乾隆五十七（１７９２）年萃文書屋活字本（通稱 程乙本)" -g "101" -y $DATE -T "$CHAPTER/120" $CHAPTER.mp3
 ls -l
 mid3v2 $1.mp3
 cd $STONE_DIR
-mv $ORIG_DIR/$1.mp3 .
+mv $ORIG_DIR/$CHAPTER.mp3 .
 sed "s/^const episodes.*$/const episodes = $NOZERO;/" < raylex.html | sed "s/<hr>/<hr>\nLast updated on $(date +%c)/" > index.html
 cd ..
 git add -A
 git commit -m "Add entries."
 git push origin master
 cd $ORIG_DIR
+sleep 2m
+CHAPTER=$(printf "%03d" `expr $CHAPTER + 1`)
+done
