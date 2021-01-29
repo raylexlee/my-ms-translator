@@ -25,10 +25,12 @@ cd $STONE_DIR
 mv $ORIG_DIR/$CHAPTER.mp3 .
 sed "s/^const episodes.*$/const episodes = $NOZERO;/" < raylex.html | sed "s/<hr>/<hr>\nLast updated on $(date +%c)/" > index.html
 cd ..
-git add -A
-git commit -m "Add entries."
-git push origin master
 cd $ORIG_DIR
 sleep 2m
 CHAPTER=$(printf "%03d" `expr $CHAPTER + 1`)
 done
+cd $STONE_DIR
+git add -A
+git commit -m "Add entries."
+git push origin master
+cd $ORIG_DIR
