@@ -11,7 +11,17 @@ const html = m => `<!DOCTYPE html>
   ${m[2]}<br>
   ${m[3].replace(/<img src=\/mpf\/h\/HUHN\.BMP align=absmiddle border=0>/gm, '雞')
         .replace(/<img src=\/mpf\/h\/HUAU\.BMP align=absmiddle border=0>/gm, '巴')
-        .replace(/<img src=\/mpf\/r\/RQJL\.BMP align=absmiddle border=0>/gm, '邦') }  
+        .replace(/<img src=\/mpf\/r\/RQJL\.BMP align=absmiddle border=0>/gm, '『口邦』')
+        .replace(/<img src=\/mpf\/c\/CHHIO.BMP align=absmiddle border=0>/gm, '『分瓜』')
+        .replace(/<img src=\/mpf\/g\/GOJBC.BMP align=absmiddle border=0>/gm, '『走真』')
+        .replace(/<img src=\/mpf\/h\/HUPH.BMP align=absmiddle border=0>/gm, '『毛必』')
+        .replace(/<img src=\/mpf\/o\/OIFSU.BMP align=absmiddle border=0>/gm, '『食卷』')
+        .replace(/<img src=\/mpf\/h\/HRFLN.BMP align=absmiddle border=0>/gm, '『烏刂』')
+        .replace(/<img src=\/mpf\/r\/RHHW.BMP align=absmiddle border=0>/gm, '『口留』')
+        .replace(/<img src=\/mpf\/d\/DHGY.BMP align=absmiddle border=0>/gm, '『木靠』')
+        .replace(/<img src=\/mpf\/h\/HUWTJ.BMP align=absmiddle border=0>/gm, '『毛畢』')
+        .replace(/<img src=\/mpf\/h\/HUVII.BMP align=absmiddle border=0>/gm, '『毛幾』')
+        .replace(/<img src=\/mpf\/l\/LTIT.BMP align=absmiddle border=0>/gm, '『衤莽』') }
 </body>
 </html>`;
 const infile = i => `./redchamberdream/${i.toString()}.html`;
