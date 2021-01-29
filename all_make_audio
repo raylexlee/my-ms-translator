@@ -3,6 +3,8 @@ CHAPTER=${1?"missing: the three digit 001-120"}
 [[ $PATH =~ $HOME/spx  ]] || PATH=$HOME/spx:$PATH
 ORIG_DIR=$(pwd)
 STONE_DIR=$HOME/raylexlee.github.io/stone
+while [ $CHAPTER -le 120 ]
+do
 NOZERO=$(echo $CHAPTER | sed 's/^0*//')
 TITLE=$(grep $CHAPTER ../titles.txt | tr -d [:digit:])
 DATE=$(date +%F)
@@ -28,3 +30,5 @@ git commit -m "Add entries."
 git push origin master
 cd $ORIG_DIR
 sleep 2m
+CHAPTER=$(printf "%03d" `expr $CHAPTER + 1`)
+done
