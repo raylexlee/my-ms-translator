@@ -1,0 +1,11 @@
+#!/bin/bash
+CHAPTER=${1?"missing: the three digit 001-060"}
+while [ $CHAPTER -le 060 ]
+do
+TITLE=$(grep $CHAPTER coverparameters.txt | tr -s [:blank:] '_')
+IMAGE=$HOME/my-ms-translator/officialdom/cover/$CHAPTER.jpg
+AUDIO=$HOME/raylexlee.github.io/officialdom/$CHAPTER.mp3
+VIDEO=$HOME/my-ms-translator/officialdom/youtube/人工智能　廣東話朗讀　$TITLE.mkv
+ffmpeg -loop 1 -framerate 1 -i $IMAGE -i $AUDIO -c:v libx264 -preset veryslow -crf 0 -c:a copy -shortest $VIDEO
+CHAPTER=$(printf "%03d" `expr $CHAPTER + 1`)
+done

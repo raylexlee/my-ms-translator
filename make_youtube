@@ -1,0 +1,7 @@
+#!/bin/bash
+CHAPTER=${1?"missing: the three digit 001-120"}
+TITLE=$(grep $CHAPTER coverparameters.txt | tr -s [:blank:] '_')
+IMAGE=$HOME/my-ms-translator/cover/$CHAPTER.jpg
+AUDIO=$HOME/raylexlee.github.io/stone/$CHAPTER.mp3
+VIDEO=$HOME/my-ms-translator/youtube/人工智能　廣東話朗讀　$TITLE.mkv
+ffmpeg -loop 1 -framerate 1 -i $IMAGE -i $AUDIO -c:v libx264 -preset veryslow -crf 0 -c:a copy -shortest $VIDEO

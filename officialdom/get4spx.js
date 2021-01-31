@@ -1,3 +1,8 @@
+/* Modified from ../get4spx.js by Raylex Lee on 30 January 2021
+   Purpose : Prepare the small chunk size of ssml parts of each chapter of the fiction
+   Usage : node get4spx.js > titles.txt
+   Output : 001_?.ssml 002_?.ssml ... 060_?.ssml in sub-directory spx (e.g. fiction has 60 chap
+*/
 const nFirst = 3610;
 const nLast = 3669;
 const nSecond = nFirst - 1;
@@ -16,23 +21,12 @@ const regex = /<br>/mg;
 const pattern = /^.*color=navy>(.*)<\/br>(.*)<\/font><\/h4>\r\n\t\t\t(.*)$/m;
 const infile = i => `./original/${i.toString()}.html`;
 const outfile = (i, j) => `./spx/${(i-nSecond).toString().padStart(3,'0')}_${j}.ssml`;
+const chapterTitle = (i, m) => `${(i-nSecond).toString().padStart(3,'0')}${m[1]}${m[2]}`;
 for (let i=nFirst; i <= nLast; i++) {
   const rawdata = fs.readFileSync(infile(i), {encoding:'utf8', flag:'r'});
   const m = rawdata.match(pattern);
-  const paras = m[3].replace(/<img src=\/mpf\/h\/HUHN\.BMP align=absmiddle border=0>/gm, '雞')
-                        .replace(/<img src=\/mpf\/h\/HUAU\.BMP align=absmiddle border=0>/gm, '巴')
-                        .replace(/<img src=\/mpf\/r\/RQJL\.BMP align=absmiddle border=0>/gm, '『口邦』')
-                        .replace(/<img src=\/mpf\/c\/CHHIO.BMP align=absmiddle border=0>/gm, '『分瓜』')
-                        .replace(/<img src=\/mpf\/g\/GOJBC.BMP align=absmiddle border=0>/gm, '『走真』')
-                        .replace(/<img src=\/mpf\/h\/HUPH.BMP align=absmiddle border=0>/gm, '『毛必』')
-                        .replace(/<img src=\/mpf\/o\/OIFSU.BMP align=absmiddle border=0>/gm, '『食卷』')
-                        .replace(/<img src=\/mpf\/h\/HRFLN.BMP align=absmiddle border=0>/gm, '『烏刂』')
-                        .replace(/<img src=\/mpf\/r\/RHHW.BMP align=absmiddle border=0>/gm, '『口留』')
-                        .replace(/<img src=\/mpf\/d\/DHGY.BMP align=absmiddle border=0>/gm, '『木靠』')
-                        .replace(/<img src=\/mpf\/h\/HUWTJ.BMP align=absmiddle border=0>/gm, '『毛畢』')
-                        .replace(/<img src=\/mpf\/h\/HUVII.BMP align=absmiddle border=0>/gm, '『毛幾』')
-                        .replace(/<img src=\/mpf\/l\/LTIT.BMP align=absmiddle border=0>/gm, '『衤莽』')
-                        .split(regex)
+  const paras = m[3].split(regex)
+  console.log(chapterTitle(i, m))
   paras.pop();
   paras.pop();                      
   const titleVoice = voiceText(voiceName[2], `${m[1]}${subst}${m[2]}`);

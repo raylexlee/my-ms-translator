@@ -1,5 +1,7 @@
 node_modules/
 temp/
+cover/
+youtube/
 key
 region
 log*

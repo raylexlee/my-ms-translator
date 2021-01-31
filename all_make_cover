@@ -1,0 +1,9 @@
+#!/bin/bash
+CHAPTER=${1?"missing: the three digit 001-120"}
+while [ $CHAPTER -le 120 ]
+do
+rm cover/$CHAPTER.jpg
+PARAM=$(grep $CHAPTER coverparameters.txt)
+./genCoverPicture.py $PARAM
+CHAPTER=$(printf "%03d" `expr $CHAPTER + 1`)
+done

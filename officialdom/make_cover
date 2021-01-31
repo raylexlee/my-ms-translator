@@ -1,0 +1,5 @@
+#!/bin/bash
+CHAPTER=${1?"missing: the three digit 001-060"}
+rm cover/$CHAPTER.jpg
+PARAM=$(grep $CHAPTER coverparameters.txt)
+./genCoverPicture.py $PARAM
